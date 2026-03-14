@@ -49,7 +49,7 @@ printf "  ${dim}load${r}     ${L1C}%s${r} ${dim}1m${r}   ${L5C}%s${r} ${dim}5m${
     "$LOAD1" "$LOAD5" "$LOAD15"
 printf "  ${dim}procs${r}    ${green}%s${r} ${dim}root${r}   ${green}%s${r} ${dim}user${r}   ${green}%s${r} ${dim}total${r}\n" \
     "$PROCESS_ROOT" "$PROCESS_USER" "$PROCESS_ALL"
-printf "\n"
-printf "  ${dim}cpu${r}      ${cyan}%s${r} ${dim}×${r}${green}%s${r}\n" "$PROCESSOR_NAME" "$PROCESSOR_COUNT"
+#printf "\n"
+#printf "  ${dim}cpu${r}      ${cyan}%s${r} ${dim}×${r}${green}%s${r}\n" "$PROCESSOR_NAME" "$PROCESSOR_COUNT"
 printf "  ${dim}memory${r}   ${orange}%s${r} ${dim}used${r}   ${green}%s${r} ${dim}avail${r}   %s ${dim}total${r}\n\n" \
     "$USED" "$AVAIL" "$TOTAL"
