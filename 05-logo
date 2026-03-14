@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -f /etc/environment ] && source /etc/environment
+
 case "$SYS_NICKNAME" in
   mars)
     c=$'\e[38;5;208m'
