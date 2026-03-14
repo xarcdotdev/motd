@@ -15,11 +15,11 @@ PROCESSOR_COUNT=`grep -ioP 'processor\t:' /proc/cpuinfo | wc -l`
 
 W="\e[0;39m"
 G="\e[1;32m"
+O="\e[38;5;208m"
 
 echo -e "
-${W}system info:
-$W  Distro......: $W`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
-$W  Kernel......: $W`uname -sr`
+${W}system:
+$W  Distro......: $O`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'` $W(`uname -sr`)
 
 $W  Uptime......: $W`uptime -p`
 $W  Load........: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
