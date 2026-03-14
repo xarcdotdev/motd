@@ -33,5 +33,5 @@ for i in ${!services[@]}; do
 done
 out+="\n"
 
-printf "\nservices:\n"
+printf "services:\n"
 printf "$out" | column -ts $',' | sed -e 's/^/  /'

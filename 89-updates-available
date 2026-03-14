@@ -22,4 +22,4 @@ detail=""
 [ -n "$esm" ]      && [ "$esm" -gt 0 ]      && detail="${detail:+$detail${dim}, ${r}}${orange}${esm}${r} ${dim}esm${r}"
 [ -n "$detail" ] && detail=" ${dim}(${r}${detail}${dim})${r}"
 
-printf "\n  ${dim}updates${r}  ${yellow}%s${r} ${dim}available${r}%s\n" "$total" "$detail"
+printf "  ${dim}updates${r}  ${yellow}%s${r} ${dim}available${r}%s\n" "$total" "$detail"
