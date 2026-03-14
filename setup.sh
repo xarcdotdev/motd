@@ -8,15 +8,42 @@ if [ "$(id -u)" -ne 0 ]; then
     exec sudo bash "$0" "$@"
 fi
 
-for script in "$REPO"/[0-9]*; do
-    name="$(basename "$script")"
-    dest="$TARGET/$name"
+# Scripts to symlink from this repo
+symlink=(
+    05-logo
+    20-sysinfo
+    35-diskspace
+    40-services
+    89-updates-available
+)
 
+# System scripts to deactivate
+deactivate=(
+    00-header
+    50-motd-news
+    90-updates-available
+)
+
+for name in "${symlink[@]}"; do
+    dest="$TARGET/$name"
     if [ -L "$dest" ]; then
-        echo "skip   $name (symlink exists)"
+        echo "skip     $name (already symlinked)"
         continue
     fi
+    ln -s "$REPO/$name" "$dest"
+    echo "linked   $name"
+done
 
-    ln -s "$script" "$dest"
-    echo "linked $name -> $dest"
+for name in "${deactivate[@]}"; do
+    dest="$TARGET/$name"
+    if [ ! -f "$dest" ]; then
+        echo "skip     $name (not found)"
+        continue
+    fi
+    if [ ! -x "$dest" ]; then
+        echo "skip     $name (already inactive)"
+        continue
+    fi
+    chmod -x "$dest"
+    echo "disabled $name"
 done
