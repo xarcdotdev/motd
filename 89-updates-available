@@ -1,0 +1,19 @@
+#!/bin/sh
+
+stamp="/var/lib/update-notifier/updates-available"
+[ ! -r "$stamp" ] && exit 0
+
+find "$stamp" -newermt 'now-7 days' 2>/dev/null | grep -q -m1 '.' || /usr/share/update-notifier/notify-updates-outdated
+
+total=$(grep -oP '^\d+(?= updates can be applied)' "$stamp")
+[ -z "$total" ] && exit 0
+
+security=$(grep -oP '^\d+(?= of these updates (is|are) a standard security)' "$stamp")
+esm=$(grep -oP '^\d+(?= additional security updates can be applied with ESM)' "$stamp")
+
+detail=""
+[ -n "$security" ] && [ "$security" -gt 0 ] && detail="${security} security"
+[ -n "$esm" ] && [ "$esm" -gt 0 ] && detail="${detail:+$detail, }${esm} esm"
+[ -n "$detail" ] && detail=" ($detail)"
+
+printf "\n  updates: %s available%s\n" "$total" "$detail"
