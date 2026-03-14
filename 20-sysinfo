@@ -14,14 +14,14 @@ PROCESSOR_NAME=$(awk -F': ' '/model name/ { print $2; exit }' /proc/cpuinfo)
 PROCESSOR_COUNT=$(grep -c 'processor' /proc/cpuinfo)
 
 # colors
-r="\e[0m"
-bold="\e[1m"
-dim="\e[2m"
-green="\e[1;32m"
-orange="\e[38;5;208m"
-red="\e[1;31m"
-yellow="\e[1;33m"
-cyan="\e[0;36m"
+r=$'\e[0m'
+bold=$'\e[1m'
+dim=$'\e[2m'
+green=$'\e[1;32m'
+orange=$'\e[38;5;208m'
+red=$'\e[1;31m'
+yellow=$'\e[1;33m'
+cyan=$'\e[0;36m'
 
 # color load value based on per-cpu ratio
 load_color() {

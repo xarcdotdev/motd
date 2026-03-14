@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 stamp="/var/lib/update-notifier/updates-available"
 [ ! -r "$stamp" ] && exit 0
@@ -11,9 +11,15 @@ total=$(grep -oP '^\d+(?= updates can be applied)' "$stamp")
 security=$(grep -oP '^\d+(?= of these updates (is|are) a standard security)' "$stamp")
 esm=$(grep -oP '^\d+(?= additional security updates can be applied with ESM)' "$stamp")
 
-detail=""
-[ -n "$security" ] && [ "$security" -gt 0 ] && detail="${security} security"
-[ -n "$esm" ] && [ "$esm" -gt 0 ] && detail="${detail:+$detail, }${esm} esm"
-[ -n "$detail" ] && detail=" ($detail)"
+r=$'\e[0m'
+dim=$'\e[2m'
+yellow=$'\e[1;33m'
+red=$'\e[1;31m'
+orange=$'\e[38;5;208m'
 
-printf "\n  updates: %s available%s\n" "$total" "$detail"
+detail=""
+[ -n "$security" ] && [ "$security" -gt 0 ] && detail="${red}${security}${r} ${dim}security${r}"
+[ -n "$esm" ]      && [ "$esm" -gt 0 ]      && detail="${detail:+$detail${dim}, ${r}}${orange}${esm}${r} ${dim}esm${r}"
+[ -n "$detail" ] && detail=" ${dim}(${r}${detail}${dim})${r}"
+
+printf "\n  ${dim}updates${r}  ${yellow}%s${r} ${dim}available${r}%s\n" "$total" "$detail"
